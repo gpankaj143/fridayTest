@@ -10,10 +10,13 @@ on:
                       steps:
                             - uses: actions/checkout@v3
                                   - name: set up JDK
-                                          uses: actions/setup-java@v3        with:
-                                                    java-version: '11'
-                                                            run: mvn clean test | tee test.log
-                                                                  - name: build artifacts
-                                                                          run: mvn clean package -Dmaven.test.skip
-                                                                                - name: set up artifacts        run: mkdir artifacts && cp test.log target/*.jar artifacts      - uses: actions/upload-artifact@v3        with:
-                                                                                          name: Package          path: artifacts
+                                          uses: actions/setup-java@v3
+                                                  with:
+                                                            java-version: '11'
+                                                                      distribution: 'temurin'
+                                                                            - name: run Tests        run: mvn clean test | tee test.log
+                                                                                  - name: build artifacts
+                                                                                          run: mvn clean package -Dmaven.test.skip
+                                                                                                - name: set up artifacts
+                                                                                                        run: mkdir artifacts && cp test.log target/*.jar artifacts      - uses: actions/upload-artifact@v4
+                                                                                                                with:          name: Package          path: artifacts
